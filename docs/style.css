@@ -153,6 +153,27 @@ h1 {
   background: #fff;
 }
 
+.visit-counter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  margin-top: 18px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.visit-counter span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.visit-counter strong {
+  color: var(--aqua-deep);
+  font-weight: 800;
+}
+
 .preview {
   width: 100%;
   min-height: 520px;
@@ -929,6 +950,12 @@ body.tutorial-page {
     font-size: 14px;
     text-align: center;
     white-space: nowrap;
+  }
+
+  .visit-counter {
+    justify-content: center;
+    margin-top: 16px;
+    text-align: center;
   }
 
   .topbar {
