@@ -15,5 +15,5 @@ TronClass++ 是一个畅课功能增强插件
 > 免责声明：本工具仅供学习交流之用途，请尊重版权。不支持、不鼓励任何利用本工具进行不正当盈利的行为，不当使用本工具造成的后果自负。
 
 ## 参考项目
-[XMUFD](https://github.com/RinnMoe/TronClassPlusPlus) 、
-[畅课 Hack](https://github.com/RinnMoe/TronClassPlusPlus)
+[XMUFD](https://github.com/KrsMt-0113/XMUFD) 、
+[tronclass-hack](https://github.com/CUC-Life-Hack/tronclass-hack)
