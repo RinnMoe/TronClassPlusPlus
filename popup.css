@@ -69,10 +69,23 @@ header strong {
 }
 
 .version-label {
+  width: fit-content;
+  padding: 2px 4px;
   color: rgba(255, 255, 255, 0.82);
+  background: transparent;
+  border-radius: 4px;
   font-size: 12px;
   font-weight: 650;
   line-height: 1;
+}
+
+.version-label:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.version-label:focus-visible {
+  outline-color: rgba(255, 255, 255, 0.9);
 }
 
 .header-actions {

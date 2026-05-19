@@ -6,12 +6,13 @@
   "permissions": [
     "downloads",
     "activeTab",
-    "tabs"
+    "tabs",
+    "storage"
   ],
   "host_permissions": [
     "*://*/course/*/learning-activity*",
     "https://api.github.com/*",
-    "https://raw.githubusercontent.com/RinnMoe/TronClassFileDownloadEnhancer/*"
+    "https://raw.githubusercontent.com/RinnMoe/TronClassPlusPlus/*"
   ],
   "background": {
     "service_worker": "background.js"
@@ -43,4 +44,3 @@
     }
   ]
 }
-

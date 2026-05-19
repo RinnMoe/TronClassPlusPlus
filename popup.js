@@ -5,9 +5,7 @@
   const status = $('#dl-status');
   const list = $('#dl-list');
   const dlAllBtn = $('#dl-all');
-  const aboutBtn = $('#about');
   const githubBtn = $('#github');
-  const checkUpdateBtn = $('#check-update');
   const currentVersionLabel = $('#current-version');
   const updateStatus = $('#update-status');
   const updateMessage = $('#update-message');
@@ -15,7 +13,6 @@
   const footer = $('#footer');
   const emptyState = $('#empty-state');
   const emptyMessage = $('#empty-message');
-  const tutorialLink = $('#tutorial-link');
   const refreshLink = $('#refresh-link');
 
   const videoStatus = $('#video-status');
@@ -30,10 +27,10 @@
   const tabs = $$('.mode-tab');
   const downloadView = $('#view-downloads');
   const videoView = $('#view-video');
-  const REPO_URL = 'https://github.com/RinnMoe/TronClassFileDownloadEnhancer';
-  const DOCS_URL = 'https://rinnmoe.github.io/TronClassFileDownloadEnhancer';
-  const LATEST_RELEASE_API = 'https://api.github.com/repos/RinnMoe/TronClassFileDownloadEnhancer/releases/latest';
-  const REMOTE_MANIFEST_URL = 'https://raw.githubusercontent.com/RinnMoe/TronClassFileDownloadEnhancer/main/manifest.json';
+  const REPO_URL = 'https://github.com/RinnMoe/TronClassPlusPlus';
+  const LATEST_RELEASE_API = 'https://api.github.com/repos/RinnMoe/TronClassPlusPlus/releases/latest';
+  const REMOTE_MANIFEST_URL = 'https://raw.githubusercontent.com/RinnMoe/TronClassPlusPlus/main/manifest.json';
+  const LAST_AUTO_UPDATE_CHECK_KEY = 'lastAutoUpdateCheckDate';
 
   let currentOrigin = null;
   let currentView = 'downloads';
@@ -83,6 +80,39 @@
     openReleaseBtn.textContent = actionText || '';
   }
 
+  function getLocalDateKey(date = new Date()) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
+  async function shouldRunDailyAutoUpdateCheck() {
+    if (!globalThis.chrome || !chrome.storage || !chrome.storage.local) {
+      return true;
+    }
+
+    const today = getLocalDateKey();
+
+    try {
+      const stored = await chrome.storage.local.get(LAST_AUTO_UPDATE_CHECK_KEY);
+      if (stored[LAST_AUTO_UPDATE_CHECK_KEY] === today) {
+        return false;
+      }
+
+      await chrome.storage.local.set({ [LAST_AUTO_UPDATE_CHECK_KEY]: today });
+      return true;
+    } catch {
+      return true;
+    }
+  }
+
+  async function checkForUpdatesOncePerDay() {
+    if (await shouldRunDailyAutoUpdateCheck()) {
+      await checkForUpdates(false);
+    }
+  }
+
   async function fetchLatestVersion() {
     const candidates = [];
 
@@ -126,7 +156,7 @@
       return updateCheckRequest;
     }
 
-    checkUpdateBtn.disabled = true;
+    currentVersionLabel.disabled = true;
     updateCheckShouldShowLatest = !!showLatestMessage;
     if (showLatestMessage) {
       setUpdateStatus('正在检查更新...', 'notice');
@@ -155,13 +185,13 @@
       })
       .catch(() => {
         if (updateCheckShouldShowLatest) {
-          setUpdateStatus('更新检查失败，请稍后重试', 'error');
+          setUpdateStatus('检查更新失败，请稍后重试', 'error');
         } else {
           updateStatus.hidden = true;
         }
       })
       .finally(() => {
-        checkUpdateBtn.disabled = false;
+        currentVersionLabel.disabled = false;
         updateCheckRequest = null;
         updateCheckShouldShowLatest = false;
       });
@@ -436,7 +466,7 @@
 
   currentVersionLabel.textContent = `v${getCurrentVersion()}`;
 
-  checkUpdateBtn.addEventListener('click', () => {
+  currentVersionLabel.addEventListener('click', () => {
     checkForUpdates(true);
   });
 
@@ -444,17 +474,8 @@
     chrome.tabs.create({ url: latestVersionUrl });
   });
 
-  aboutBtn.addEventListener('click', () => {
-    chrome.tabs.create({ url: DOCS_URL });
-  });
-
   githubBtn.addEventListener('click', () => {
     chrome.tabs.create({ url: REPO_URL });
-  });
-
-  tutorialLink.addEventListener('click', (event) => {
-    event.preventDefault();
-    chrome.tabs.create({ url: `${DOCS_URL}/tutorial.html` });
   });
 
   refreshLink.addEventListener('click', async (event) => {
@@ -466,6 +487,6 @@
     } catch {}
   });
 
-  checkForUpdates(false);
+  checkForUpdatesOncePerDay();
   await loadFiles();
 })();
