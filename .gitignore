@@ -1,0 +1,13 @@
+# OS junk
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# Temporary
+*.tmp
+*.swp
+
+/.example
+/.github

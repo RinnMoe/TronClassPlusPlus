@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TronClass++</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <strong>TronClass++</strong>
+        <span id="current-version" class="version-label">v--</span>
+      </div>
+      <div class="header-actions">
+        <button id="check-update" class="icon-btn" type="button" title="检查更新" aria-label="检查更新">
+          <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="currentColor" d="M12 4a8 8 0 0 0-7.75 6.04l1.94.49A6 6 0 1 1 8.02 16H5v2h6v-6H9v2.47A6 6 0 0 1 12 6a5.97 5.97 0 0 1 5.65 4H15v2h6V6h-2v2.21A7.99 7.99 0 0 0 12 4Z"/>
+          </svg>
+        </button>
+        <button id="github" class="icon-btn" type="button" title="GitHub" aria-label="GitHub">
+          <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="currentColor" d="M12 .5C5.65.5.5 5.66.5 12.02c0 5.09 3.29 9.4 7.86 10.92.58.11.79-.25.79-.56v-2.17c-3.2.7-3.88-1.37-3.88-1.37-.52-1.34-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.78 1.2 1.78 1.2 1.03 1.78 2.7 1.26 3.36.96.1-.76.4-1.26.73-1.56-2.55-.29-5.23-1.29-5.23-5.72 0-1.26.44-2.28 1.17-3.09-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.14 1.18a10.8 10.8 0 0 1 5.72 0c2.18-1.49 3.14-1.18 3.14-1.18.62 1.58.23 2.75.11 3.04.73.81 1.17 1.83 1.17 3.09 0 4.44-2.69 5.43-5.25 5.71.41.36.78 1.07.78 2.16v3.2c0 .31.21.68.8.56a11.53 11.53 0 0 0 7.85-10.92C23.5 5.66 18.35.5 12 .5Z"/>
+          </svg>
+        </button>
+        <button id="about" class="icon-btn" type="button" title="关于" aria-label="About">
+          <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="currentColor" d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm0 4.2a1.4 1.4 0 1 1-1.4 1.4A1.4 1.4 0 0 1 12 6.2Zm1.8 11h-3.6v-1.8H11v-4.2h-.8V9.4h2.6v6h1V17.2Z"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <nav class="mode-tabs" aria-label="功能分类" role="tablist">
+      <button id="tab-downloads" class="mode-tab active" type="button" data-view="downloads" aria-controls="view-downloads">课件下载</button>
+      <button id="tab-video" class="mode-tab" type="button" data-view="video" aria-controls="view-video">视频播放</button>
+    </nav>
+
+    <div id="update-status" class="update-status" hidden>
+      <span id="update-message"></span>
+      <button id="open-release" class="update-link" type="button" hidden>查看</button>
+    </div>
+
+    <main class="views">
+      <section id="view-downloads" class="view active" role="tabpanel" aria-labelledby="tab-downloads">
+        <div id="dl-status" class="status">Loading...</div>
+        <div id="dl-list"></div>
+        <div id="empty-state" class="empty-state" style="display:none;">
+          <p id="empty-message">未检测到可下载的文件</p>
+          <p class="hint">请访问课程页面查看课程内容<br>或<a id="refresh-link" class="hint-link" href="#">刷新</a>后重试</p>
+          <p class="hint">查看<a id="tutorial-link" class="hint-link" href="#">使用教程</a></p>
+        </div>
+      </section>
+
+      <section id="view-video" class="view" role="tabpanel" aria-labelledby="tab-video">
+        <div id="video-status" class="status">Loading...</div>
+        <div id="video-panel" class="video-panel">
+          <div class="setting-row">
+            <div class="setting-copy">
+              <div class="setting-title">自动播放视频</div>
+              <div id="anti-pause-state" class="setting-state">已关闭</div>
+            </div>
+            <label class="switch">
+              <input id="anti-pause-toggle" type="checkbox" />
+              <span></span>
+            </label>
+          </div>
+
+          <div class="setting-row">
+            <div class="setting-copy">
+              <div class="setting-title">播放完成后跳转下一项</div>
+              <div id="auto-navigate-state" class="setting-state">已关闭</div>
+            </div>
+            <label class="switch">
+              <input id="auto-navigate-toggle" type="checkbox" />
+              <span></span>
+            </label>
+          </div>
+
+          <button id="video-refresh" class="btn btn-secondary" type="button">刷新状态</button>
+        </div>
+        <div id="video-empty-state" class="empty-state" style="display:none;">
+          <p id="video-empty-message">当前页面无可用视频功能</p>
+        </div>
+      </section>
+    </main>
+
+    <div class="footer" id="footer">
+      <button id="dl-all" class="btn btn-primary" style="display:none;">下载全部</button>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

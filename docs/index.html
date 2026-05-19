@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Noto+Sans+SC:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="icon128.png" />
+    <link rel="stylesheet" href="style.css" />
+    <title>TronClass++</title>
+  </head>
+
+  <body>
+    <main class="app-shell">
+      <nav class="topbar" aria-label="页面导航">
+        <div class="nav-actions">
+          <a href="tutorial.html">教程</a>
+          <a href="https://github.com/RinnMoe/TronClassFileDownloadEnhancer" target="_blank" rel="noreferrer">GitHub</a>
+        </div>
+      </nav>
+
+      <section class="hero" aria-labelledby="page-title">
+        <div class="hero-copy">
+          <p class="product">TronClass enhancement extension</p>
+          <h1 id="page-title" class="brand-title">TronClass++</h1>
+          <p class="lead">对畅课功能进行加强，支持仅预览文件下载、批量下载和视频播放辅助。适用于 Chromium 系浏览器与 Safari(Mac)。</p>
+          <div class="actions">
+            <a class="btn primary" href="https://github.com/RinnMoe/TronClassFileDownloadEnhancer/releases" target="_blank" rel="noreferrer">下载最新版本</a>
+            <a class="btn ghost" href="tutorial.html">查看教程</a>
+            <a class="btn ghost" href="https://github.com/RinnMoe/TronClassFileDownloadEnhancer/archive/refs/heads/main.zip" target="_blank" rel="noreferrer">下载源码 ZIP</a>
+          </div>
+        </div>
+
+        <div class="preview extension-preview" aria-label="TronClass++ 弹窗预览">
+          <div class="popup-head">
+            <strong>TronClass++</strong>
+            <div class="popup-icons">
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+          <div class="mode-tabs">
+            <span class="active">课件下载</span>
+            <span>视频播放</span>
+          </div>
+          <div class="status success">检测到 3 个文件</div>
+          <div class="popup-list">
+            <div class="file-item">
+              <div>
+                <strong>Lecture 01.pdf</strong>
+                <span>2.80 MB</span>
+              </div>
+              <button type="button">下载</button>
+            </div>
+            <div class="file-item">
+              <div>
+                <strong>Preview only.docx</strong>
+                <span>640 KB</span>
+              </div>
+              <button type="button">下载</button>
+            </div>
+            <div class="setting-row">
+              <div>
+                <strong>自动播放视频</strong>
+                <span>已开启</span>
+              </div>
+              <span class="switch on"></span>
+            </div>
+            <div class="setting-row">
+              <div>
+                <strong>播放完成后跳转下一项</strong>
+                <span>已关闭</span>
+              </div>
+              <span class="switch"></span>
+            </div>
+          </div>
+          <div class="popup-footer">下载全部</div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
